@@ -1,7 +1,12 @@
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import models.TelephoneSubscriber;
 import task.task1;
+import task.task2;
+import task.task3;
+import task.task4;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,7 +20,7 @@ public class Main {
                     MenuTasks();
                     break;
                 }
-                case 2: {
+                case 3: {
                     flag = false;
                     break;
                 }
@@ -27,23 +32,82 @@ public class Main {
         try (Scanner in = new Scanner(System.in)) {
             boolean flag = true;
             while (flag) {
-                System.out.print("\n 1 - Условия \n 2 - Одномерный массив\n 3- Двумерный массив\n 4 - Нахождение D\n " +
-                        "5 - Завершить программу \n");
+                System.out.print(
+                        "\n 1 - Условия \n 2 - Нахождение D \n 3 - Одномерный массив\n 4 - Двумерный массив\n " +
+                                "5 - Завершить программу \n");
                 int num = in.nextInt();
                 switch (num) {
                     case 1: {
-                        // Тут собственно всякие разные исходы для MultiplicationCondition
-                        System.out.printf("При x = 5 и y = 5: " + task1.tripleTangence(5, 5) + "\n");
-                        System.out.printf("При x = 12 и y = 12: " + task1.tripleTangence(12, 12) + "\n");
-                        System.out.printf("При x = -5 и y = 12: " + task1.tripleTangence(-5, 12) + "\n");
-                        System.out.printf("При x = -4 и y = -23: " + task1.tripleTangence(-4, -23) + "\n");
-                        System.out.printf("При x = 16 и y = 15: " + task1.tripleTangence(16, 15) + "\n");
+                        System.out.printf("При a = 5 и b = 5: " + task1.tripleTangence(5, 5) + "\n");
                         break;
                     }
                     case 2: {
+                        System.out.printf("При a = 5 и b = 5: " + task2.D(5, 5) + "\n");
+                        break;
+                    }
+                    case 3: {
+                        task3.oneDimensionalArray();
+                        break;
+                    }
+                    case 4: {
+                        task4.twoDimensionalArray();
+                        break;
+                    }
+                    case 5: {
                         flag = false;
                         break;
                     }
+                }
+            }
+        }
+    }
+
+    public static void MenuStructure() {
+        String menu = "Выберите действие:\n 1 - Заполнить список в ручную\n 2 - Заполнить список из файла" +
+                "\n 3 - Записать список в файл\n 4 - Вывести список\n " +
+                "5 - Осортировать список по имени\n " +
+                "6 - Осортировать список по розничной цене\n " +
+                "7 - Завершить программу\n";
+        Scanner in = new Scanner(System.in);
+        ArrayList<TelephoneSubscriber> TelephoneSubscriberArrayList = new ArrayList<>();
+        StorageProducts storageProducts = new StorageProducts(TelephoneSubscriberArrayList);
+        boolean flag = true;
+        while (flag) {
+            System.out.print(menu);
+            int num = in.nextInt();
+            switch (num) {
+                case 1: {
+                    RecordData(storageProducts);
+                    break;
+                }
+                case 2: {
+                    ReadDataFile(storageProducts);
+                    storageProducts.printArrayCommodity();
+                    break;
+                }
+                case 3: {
+                    WriteDataFile(storageProducts);
+                    break;
+                }
+                case 4: {
+                    storageProducts.printArrayCommodity();
+                    break;
+                }
+                /*
+                 * case 5: {
+                 * MethodsCommodity.sortByName(storageProducts.getCommodityArrayList());
+                 * storageProducts.printArrayCommodity();
+                 * break;
+                 * }
+                 * case 6: {
+                 * MethodsCommodity.sortByRetailPrice(storageProducts.getCommodityArrayList());
+                 * storageProducts.printArrayCommodity();
+                 * break;
+                 * }
+                 */
+                case 7: {
+                    flag = false;
+                    break;
                 }
             }
         }
