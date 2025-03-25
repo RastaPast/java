@@ -6,7 +6,7 @@ import java.util.Random;
 public class task4 {
     public static void twoDimensionalArray() {
         Random random = new Random();
-        int[][] matrix = new int[2][2];
+        int[][] matrix = new int[20][20];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
                 matrix[i][j] = random.nextInt(25);
