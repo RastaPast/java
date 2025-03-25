@@ -21,11 +21,11 @@ public class TelephoneSubscriber {
     private int minutesCount;
     private double cost;
 
-    public TelephoneSubscriber(String fio, String adress, String numberPhone, String month, int year, int minutesCount,
+    public TelephoneSubscriber(String fio, String adress, String numberPhone2, String month, int year, int minutesCount,
             double cost) {
         this.setFio(fio);
         this.setAdress(adress);
-        this.setNumberPhone(numberPhone);
+        this.setNumberPhone(numberPhone2);
         this.setMonth(month);
         this.setYear(year);
         this.setMinutesCount(minutesCount);
