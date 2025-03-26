@@ -32,4 +32,13 @@ public class InternationalCalls extends SubscriptionFee {
                 country, callCity, durationMinutes, pricePerMinute,
                 paymentAmount, month, year);
     }
+
+    public double getPricePerMinute() {
+        return pricePerMinute;
+    }
+
+    public void setPricePerMinute(double pricePerMinute) {
+        this.pricePerMinute = pricePerMinute;
+    }
+
 }

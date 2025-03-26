@@ -1,5 +1,7 @@
 package Zadanie6;
 
+import models.TelephoneSubscriber;
+
 public class SubscriptionFee {
     private String lastname;
     private String firstname;
@@ -9,7 +11,7 @@ public class SubscriptionFee {
     private String passportDate;
 
     public SubscriptionFee(String lastname, String firstname, String middlename, String address, String city,
-            String passportDate) {
+        String passportDate) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.middlename = middlename;
@@ -21,6 +23,19 @@ public class SubscriptionFee {
     public String toString() {
         return String.format("Абонент: %s %s %s, Адрес: %s, %s, Паспорт: %s", lastname, firstname, middlename, address,
                 city, passportDate);
+    }
+
+    public String getLastname(){
+        return lastname;
+    }
+
+    public void setLastname(String lastname){
+        this.lastname = lastname;
+    }
+
+    public double getPricePerMinute() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPricePerMinute'");
     }
 
 }

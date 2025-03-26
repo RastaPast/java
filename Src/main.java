@@ -81,14 +81,17 @@ public class Main {
 
     public static void MenuStructure() {
         String menu = "Выберите действие: \n 1 - Заполнить список в ручную\n 2 - Заполнить список из файла" +
-                "\n 3 - Записать список в файл\n 4 - Вывести список\n " +
-                "5 - Заполнить список международные звонки \n " +
-                "6 - Заполнить список городские звонки\n " +
-                "7 - Заполнить список подключение к Интернет\n" +
-                "8 - Вывести список\n" +
-                "9 - Осортировать список по имени\n" +
-                "10 - Осортировать список по розничной цене\n" +
-                "11 - Завершить программу\n";
+                "\n 3 - Заполнить список из файла InternationalCalls\n 4 - Записать список в файл LocalCalls\n " +
+                "5 - Заполнить список из файла InternetConnection\n " +
+                "6 - Записать список в файл \n " +
+                "7 - Вывести список \n" +
+                "8 -  Заполнить список международные звонки \n" +
+                "9 -  Заполнить список городские звонки \n" +
+                "10 - Заполнить список подключение к Интернет\n" +
+                "11 - Вывести список\n" +
+                "12 - Осортировать список по имени\n" +
+                "13 - Осортировать список по розничной цене\n " +
+                "14 - Завершить программу\n";
         Scanner in = new Scanner(System.in);
         ArrayList<TelephoneSubscriber> telephoneSubscriberArrayList = new ArrayList<>();
         StorageAbonent StorageAbonent = new StorageAbonent(telephoneSubscriberArrayList);
@@ -109,43 +112,63 @@ public class Main {
                     break;
                 }
                 case 3: {
-                    WriteDataFile(StorageAbonent);
-                    break;
-                }
-                case 4: {
-                    StorageAbonent.printArrayTelephoneSubscriber();
-                    break;
-                }
-                case 5: {
-                    RecordData1(paymentList);
-                    break;
-
-                }
-                case 6: {
-                    RecordData2(paymentList);
-                    break;
-
-                }
-                case 7: {
-                    RecordData3(paymentList);
-                    break;
-                }
-                case 8: {
+                    ReadDataFile1(paymentList);
                     paymentList.printAllPayments();
                     break;
                 }
+                case 4: {
+                    ReadDataFile2(paymentList);
+                    paymentList.printAllPayments();
+                    break;
+                }
+                case 5: {
+                    ReadDataFile3(paymentList);
+                    paymentList.printAllPayments();
+                    break;
+                }
+
+                case 6: {
+                    WriteDataFile(paymentList);
+                    break;
+                }
+                case 7: {
+                    StorageAbonent.printArrayTelephoneSubscriber();
+                    break;
+                }
+                case 8: {
+                    RecordData1(paymentList);
+                    break;
+                }
                 case 9: {
+                    RecordData2(paymentList);
+                    break;
+                }
+                case 10: {
+                    RecordData3(paymentList);
+                    break;
+                }
+                case 11: {
+                    paymentList.printAllPayments();
+                    break;
+                }
+                case 12: {
                     MethodsTelephoneSubscriber.sortByFIO(StorageAbonent.gettelephoneSubscriberArrayList());
                     StorageAbonent.printArrayTelephoneSubscriber();
                     break;
                 }
-                case 10: {
-                    MethodsTelephoneSubscriber.sortByCost(StorageAbonent.gettelephoneSubscriberArrayList());
-                    StorageAbonent.printArrayTelephoneSubscriber();
+                case 13: {
+                    MethodsTelephoneSubscriber.sortByCost(paymentList.getTelephoneSubscriberArrayList());
+                    paymentList.printAllPayments();
                     break;
                 }
-                case 11: {
+                case 14: {
                     flag = false;
+                    break;
+                }
+
+                case 15: {
+                    MethodsTelephoneSubscriber.sortByFIO1(paymentList.getTelephoneSubscriberArrayList());
+                    paymentList.printAllPayments();
                     break;
                 }
             }
@@ -297,14 +320,51 @@ public class Main {
         }
     }
 
-    public static void WriteDataFile(StorageAbonent StorageAbonent) {
-        try (FileWriter writer = new FileWriter("Abonent.txt", false)) {
+    public static void ReadDataFile1(PaymentList PaymentList) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File("InternationalCalls.txt")))) {
+            String str;
+            while ((str = reader.readLine()) != null)
+                PaymentList.addPayment(ParseString1(str));
+            System.out.print("Успешно записано\n");
+        } catch (IOException e) {
+            System.out.print("Что-то пошло не так");
+            e.printStackTrace();
+        }
+    }
+
+    public static void ReadDataFile2(PaymentList PaymentList) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File("LocalCalls.txt")))) {
+            String str;
+            while ((str = reader.readLine()) != null)
+                PaymentList.addPayment(ParseString2(str));
+            System.out.print("Успешно записано\n");
+        } catch (IOException e) {
+            System.out.print("Что-то пошло не так");
+            e.printStackTrace();
+        }
+    }
+
+    public static void ReadDataFile3(PaymentList PaymentList) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File("InternetConnection.txt")))) {
+            String str;
+            while ((str = reader.readLine()) != null)
+                PaymentList.addPayment(ParseString3(str));
+            System.out.print("Успешно записано\n");
+        } catch (IOException e) {
+            System.out.print("Что-то пошло не так");
+            e.printStackTrace();
+        }
+    }
+
+    public static void WriteDataFile(PaymentList paymentList) {
+        try (FileWriter writer = new FileWriter("Abonent.txt")) {
             // запись всей строки
-            for (TelephoneSubscriber commodity : StorageAbonent.gettelephoneSubscriberArrayList()) {
+            for (SubscriptionFee commodity : paymentList.getTelephoneSubscriberArrayList()) {
                 writer.write(commodity.toString());
                 writer.append('\n');
             }
             writer.flush();
+            System.out.print("Успешно записано\n");
         } catch (IOException ex) {
             System.out.print("Что-то пошло не так");
             System.out.println(ex.getMessage());
@@ -317,6 +377,29 @@ public class Main {
         return new TelephoneSubscriber(arrayData[0], arrayData[1], (arrayData[2]),
                 arrayData[3], Integer.parseInt(arrayData[4]), Integer.parseInt(arrayData[5]),
                 Integer.parseInt(arrayData[6]));
+    }
 
+    public static SubscriptionFee ParseString1(String str) {
+        String[] arrayData1 = str.split(" ");
+        return new InternationalCalls(arrayData1[0], arrayData1[1], arrayData1[2], arrayData1[3], arrayData1[4],
+                arrayData1[5],
+                arrayData1[6], arrayData1[7],
+                Integer.parseInt(arrayData1[8]), Integer.parseInt(arrayData1[9]), Integer.parseInt(arrayData1[10]),
+                arrayData1[11], Integer.parseInt(arrayData1[12]));
+    }
+
+    public static SubscriptionFee ParseString2(String str) {
+        String[] arrayData1 = str.split(" ");
+        return new LocalCalls(arrayData1[0], arrayData1[1], arrayData1[2], arrayData1[3], arrayData1[4], arrayData1[5],
+                Integer.parseInt(arrayData1[6]), Integer.parseInt(arrayData1[7]),
+                Integer.parseInt(arrayData1[8]), arrayData1[9], Integer.parseInt(arrayData1[10]));
+    }
+
+    public static SubscriptionFee ParseString3(String str) {
+        String[] arrayData1 = str.split(" ");
+        return new InternetConnection(arrayData1[0], arrayData1[1], arrayData1[2], arrayData1[3], arrayData1[4],
+                arrayData1[5],
+                arrayData1[6], arrayData1[7], Integer.parseInt(arrayData1[8]), arrayData1[9],
+                Integer.parseInt(arrayData1[10]));
     }
 }

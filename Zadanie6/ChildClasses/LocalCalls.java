@@ -28,4 +28,12 @@ public class LocalCalls extends SubscriptionFee {
                 tariff, durationMinutes, paymentAmount, month, year);
     }
 
+    public double getPaymentAmount(){
+        return paymentAmount;
+    }
+
+    public void setPaymentAmount(double paymentAmount) {
+        this.paymentAmount = paymentAmount;
+    }
+
 }

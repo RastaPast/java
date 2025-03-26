@@ -26,4 +26,12 @@ public class InternetConnection extends SubscriptionFee {
                 ", Интернет: %s, Объем: %s, Сумма: %.2f, Месяц: %s, Год: %d",
                 connectionName, dataVolume, paymentAmount, month, year);
     }
+
+    public double getPaymentAmount(){
+        return paymentAmount;
+    }
+
+    public void setPaymentAmount(double paymentAmount) {
+        this.paymentAmount = paymentAmount;
+    }
 }
